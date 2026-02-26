@@ -35,3 +35,33 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.log
+
+# Environment variables - NIGDY nie commituj sekretów!
+.env
+.env.*
+!.env.example
+
+# VS Code
+.vscode/
+!.vscode/extensions.json
+
+# Ansible
+ansible/inventory/hosts
+*.retry
+
+# OS
+.DS_Store
+Thumbs.db
