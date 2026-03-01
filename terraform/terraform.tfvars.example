@@ -1,0 +1,3 @@
+hcloud_token   = "your-hetzner-api-token"
+server_name    = "golden-path-dev"
+ssh_public_key = "ssh-ed25519 AAAA... your-email@example.com"
