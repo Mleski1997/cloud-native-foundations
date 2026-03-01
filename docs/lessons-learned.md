@@ -1,0 +1,1 @@
+> git pull --rebase - nalozenie lokalnych zmian na top zdalnym
