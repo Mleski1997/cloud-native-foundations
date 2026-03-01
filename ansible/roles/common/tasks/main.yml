@@ -1,0 +1,53 @@
+- name: Install common packages
+  ansible.builtin.apt:
+    name:
+      - curl
+      - git
+      - vim
+      - nano
+      - htop
+    state: present
+    update_cache: yes
+
+- name: Create deployer user
+  ansible.builtin.user:
+    name: "{{ deployer_user }}"
+    shell: /bin/bash
+    groups: sudo
+    state: present
+
+- name: Add ssh key to deployer user
+  ansible.posix.authorized_key:
+    user: "{{ deployer_user }}"
+    state: present
+    key: "{{ lookup('file', '~/.ssh/id_ed25519.pub') }}"
+
+- name: no password sudo for deployer user
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers.d/{{ deployer_user }}
+    line: "{{ deployer_user }} ALL=(ALL) NOPASSWD: ALL"
+    state: present
+    create: yes
+    mode: '0440'
+    validate: 'visudo -cf %s'
+
+
+- name: Disable root login
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PermitRootLogin"
+    line: "PermitRootLogin no"
+    state: present
+    create: yes  
+  notify:
+    - Restart ssh service
+
+- name: Password authentication disabled
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: "^PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
+    create: yes
+  notify:
+    - Restart ssh service
