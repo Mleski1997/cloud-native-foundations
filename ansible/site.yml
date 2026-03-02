@@ -3,3 +3,9 @@
   become: yes
   roles:
     - common
+
+- name: Install Docker
+  hosts: servers
+  become: yes
+  roles:
+    - docker
