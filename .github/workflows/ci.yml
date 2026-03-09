@@ -60,6 +60,7 @@ jobs:
           username: deployer
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            echo ${{ secrets.GHCR_TOKEN }} | docker login ghcr.io -u mleski1997 --password-stdin
             docker pull ghcr.io/mleski1997/cloud-native:${{ github.sha }}
             docker stop cloud-native || true
             docker rm cloud-native || true
