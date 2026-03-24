@@ -1,3 +1,7 @@
+- name: Login to GitHub Container Registry
+  ansible.builtin.command:
+    cmd: docker login ghcr.io -u mleski1997 -p {{ ghcr_token }}
+
 - name: Create directory for compose files
   ansible.builtin.file:
     path: /home/{{ deployer_user }}/docker-compose
