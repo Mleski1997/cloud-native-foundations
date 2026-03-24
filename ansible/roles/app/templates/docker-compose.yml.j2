@@ -1,9 +1,7 @@
 
 services:
   app:
-    build:
-      context: ./app
-      dockerfile: Dockerfile
+    image: {{ app_image }}:{{ app_version }}
     environment:
       - PORT=8000
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
@@ -30,8 +28,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - caddy_data:/dataz
+      - /home/{{ deployer_user }}/docker-compose/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
       - caddy_config:/config
     depends_on:
       - app

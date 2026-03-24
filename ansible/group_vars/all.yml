@@ -1,1 +1,4 @@
 deployer_user: deployer
+domain_name: api.michalleski.net.pl
+app_image: ghcr.io/mleski1997/cloud-native
+app_version: latest
