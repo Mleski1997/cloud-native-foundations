@@ -1,0 +1,25 @@
+- name: Login to GitHub Container Registry
+  ansible.builtin.command:
+    cmd: docker login ghcr.io -u mleski1997 -p {{ ghcr_token }}
+
+- name: Create directory for compose files
+  ansible.builtin.file:
+    path: /home/{{ deployer_user }}/docker-compose
+    state: directory
+    mode: '0755'
+
+- name: Create docker compose file
+  ansible.builtin.template:
+    src: docker-compose.yml.j2
+    dest: /home/{{ deployer_user }}/docker-compose/docker-compose.yml
+    mode: '0644'
+
+- name: Create Caddyfile file
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: /home/{{ deployer_user }}/docker-compose/Caddyfile
+    mode: '0644'
+
+- name: Run docker compose
+  ansible.builtin.command:
+    cmd: docker compose -f /home/{{ deployer_user }}/docker-compose/docker-compose.yml up -d

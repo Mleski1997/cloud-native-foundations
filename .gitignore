@@ -65,3 +65,7 @@ ansible/inventory/hosts
 # OS
 .DS_Store
 Thumbs.db
+
+
+# Vault
+.vault_pass

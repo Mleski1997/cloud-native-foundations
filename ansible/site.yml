@@ -9,3 +9,9 @@
   become: yes
   roles:
     - docker
+
+- name: Deploy application
+  hosts: servers
+  become: yes
+  roles:
+    - app
