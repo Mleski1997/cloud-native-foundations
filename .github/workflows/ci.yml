@@ -51,7 +51,7 @@ jobs:
           context: ./app
           file: ./app/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}:${{ github.sha }}
+          tags: ghcr.io/mleski1997/cloud-native-foundations:${{ github.sha }}
             
 
   cd:
