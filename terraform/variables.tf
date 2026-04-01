@@ -1,5 +1,5 @@
 variable "hcloud_token" {
-  description = "HCL Cloud API token"
+  description = "Hetzner Cloud API token"
   type        = string
   sensitive   = true
 }
@@ -10,7 +10,14 @@ variable "server_name" {
 }
 
 variable "ssh_public_keys" {
-  description = "Name of the SSH key to use for the server"
+  description = "SSH public keys (content) for Hetzner panel + cloud-init deployer user"
   type        = list(string)
+
+}
+
+variable "deployer_user" {
+  description = "First-boot user created by cloud-init (logujesz się nim przed Ansible)"
+  type        = string
+  default     = "deployer"
 }
 

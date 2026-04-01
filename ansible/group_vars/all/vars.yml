@@ -1,6 +1,6 @@
 deployer_user: deployer
 domain_name: api.michalleski.net.pl
 app_image: ghcr.io/mleski1997/cloud-native
-app_version: 17802545349599292612aca13d05d2a4644a10bb
+ghcr_username: mleski1997
 postgres_user: postgres
 postgres_db: postgres

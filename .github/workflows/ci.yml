@@ -73,14 +73,20 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ansible
 
+      - name: Install Ansible collections
+        run: ansible-galaxy collection install community.docker ansible.posix
+
       - name: Create inventory file
         run: |
-          mkdir -p inventory
-          echo "[servers]" > ansible/inventory/hosts
-          echo "${{ secrets.HETZNER_HOST }} >> ansible/inventory/hosts"
+          mkdir -p ansible/inventory
+          cat <<EOF > ansible/inventory/hosts
+          [servers]
+          ${{ secrets.HETZNER_HOST }} ansible_user=deployer ansible_ssh_private_key_file=~/.ssh/id_rsa
+          EOF
+        
 
       - name: Run ansible playbook
         run: |
-          ansible-playbook -i ansible/inventory/hosts ansible/site.yml -e "app_version=${{ github.sha }}"
+          ansible-playbook -i ansible/inventory/hosts ansible/site.yml -e "app_version=${{ github.sha }}" -e app_image=ghcr.io/${{ github.repository }}
 
       
